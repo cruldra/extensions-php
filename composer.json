@@ -3,6 +3,14 @@
   "description": "A simple PHP library",
   "type": "library",
   "license": "MIT",
+  "authors": [
+    {
+      "name": "Cruldra",
+      "email": "cruldra@gmail.com",
+      "homepage": "https://cruldra.github.io/notes/",
+      "role": "Developer"
+    }
+  ],
   "require": {
     "php": "^8.0"
   },
