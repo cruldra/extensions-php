@@ -46,11 +46,11 @@ class ExtString
      * ```
      *
      * @param string $delimiter 分隔符
-     * @return array  返回分隔后的数组
+     * @return ExtArray 返回分隔后的数组
      */
-    public function split(string $delimiter): array
+    public function split(string $delimiter): ExtArray
     {
-        return explode($delimiter, $this->str);
+        return ExtArray::from(explode($delimiter, $this->str));
     }
 
     /**

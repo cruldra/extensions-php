@@ -1,6 +1,7 @@
 <?php
 
 namespace ExtensionsPhp;
+
 use ArrayAccess;
 
 /**
@@ -29,6 +30,14 @@ class ExtArray implements ArrayAccess
 
     /**
      * 遍历该数组,将数组中的每一个元素作为参数传入``$callback``中并执行
+     *
+     * ```php
+     * ExtArray::from([1,2,3])->forEach(function($value,$key){
+     *    echo $value;
+     * });
+     * // 输出: 1 2 3
+     * ```
+     *
      * @param callable(T, mixed):void $callback 回调函数,该函数接受两个参数,第一个参数为数组中的元素,第二个参数为该元素的键名
      * @return static 返回当前对象
      */
