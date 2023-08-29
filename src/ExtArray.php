@@ -22,6 +22,10 @@ class ExtArray implements ArrayAccess
         $this->arr = $arr;
     }
 
+    public static function from(array $arr): static
+    {
+        return new static($arr);
+    }
 
     /**
      * 遍历该数组,将数组中的每一个元素作为参数传入``$callback``中并执行
