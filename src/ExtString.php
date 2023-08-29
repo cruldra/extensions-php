@@ -15,6 +15,10 @@ class ExtString
         $this->str = $str;
     }
 
+    public static function from(string $str): static
+    {
+        return new static($str);
+    }
 
     /**
      * 替换字符串
