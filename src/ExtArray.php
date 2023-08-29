@@ -3,16 +3,18 @@
 namespace ExtensionsPhp;
 
 use ArrayAccess;
+use Iterator;
 
 /**
  * @template T
  */
-class ExtArray implements ArrayAccess
+class ExtArray implements ArrayAccess, Iterator
 {
     /**
      * @var T[]
      */
     private array $arr;
+    private int $position = 0;
 
     /**
      * ExtArray constructor.
@@ -114,5 +116,30 @@ class ExtArray implements ArrayAccess
     public function offsetUnset(mixed $offset): void
     {
         unset($this->arr[$offset]);
+    }
+
+    public function rewind(): void
+    {
+        $this->position = 0;
+    }
+
+    public function current()
+    {
+        return $this->arr[$this->position];
+    }
+
+    public function key()
+    {
+        return $this->position;
+    }
+
+    public function next(): void
+    {
+        ++$this->position;
+    }
+
+    public function valid(): bool
+    {
+        return isset($this->arr[$this->position]);
     }
 }
