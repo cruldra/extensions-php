@@ -72,4 +72,9 @@ class ExtArray
         return array_key_exists($key, $this->arr);
     }
 
+    public function __toString(): string
+    {
+        return json_encode($this->arr);
+    }
+
 }
