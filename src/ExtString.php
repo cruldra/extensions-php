@@ -28,13 +28,12 @@ class ExtString
      * ```
      *
      * @param array|string $search 要替换的字符串,如果是一个数组的话,则会替换所有的
-     * @param string $replace   要替换成的字符串
-     * @return static   返回当前对象
+     * @param string $replace 要替换成的字符串
+     * @return ExtString    返回一个新的字符串对象
      */
-    public function replace(array|string $search,string $replace): static
+    public function replace(array|string $search, string $replace): ExtString
     {
-        $this->str = str_replace($search, $replace, $this->str);
-        return $this;
+        return new ExtString(str_replace($search, $replace, $this->str));
     }
 
     /**
@@ -52,6 +51,22 @@ class ExtString
     public function split(string $delimiter): array
     {
         return explode($delimiter, $this->str);
+    }
+
+    /**
+     * 将``$this->str``中第一次出现``$search``字符串之前的部分替换成``$replace``
+     * @param string $search 要替换的字符串
+     * @param string $replace 要替换成的字符串
+     * @return ExtString|static   如果替换成功则返回一个新的字符串对象,否则返回当前对象
+     */
+    function replaceBefore(string $search, string $replace): ExtString|static
+    {
+        //要替换的字符串在当前字符串中首次出现的位置
+        $pos = strpos($this->str, $search);
+        if ($pos !== false) {
+            return new ExtString(substr_replace($this->str, $replace, 0, $pos));
+        }
+        return $this;
     }
 
     public function __toString(): string
