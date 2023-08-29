@@ -37,4 +37,26 @@ class ExtString
         return $this;
     }
 
+    /**
+     * 字符串分隔
+     *
+     * ```php
+     *
+     * $str = new ExtString('HELLO WORLD');
+     * $str.split(' '); // ['HELLO','WORLD']
+     * ```
+     *
+     * @param string $delimiter 分隔符
+     * @return array  返回分隔后的数组
+     */
+    public function split(string $delimiter): array
+    {
+        return explode($delimiter, $this->str);
+    }
+
+    public function __toString(): string
+    {
+        return $this->str;
+    }
+
 }
