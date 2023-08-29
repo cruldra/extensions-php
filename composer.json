@@ -2,6 +2,7 @@
   "name": "cruldra/extensions-php",
   "description": "A simple PHP library",
   "type": "library",
+  "license": "MIT",
   "require": {
     "php": "^8.0"
   },
