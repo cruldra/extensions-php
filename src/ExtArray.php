@@ -1,10 +1,12 @@
 <?php
 
 namespace ExtensionsPhp;
+use ArrayAccess;
+
 /**
  * @template T
  */
-class ExtArray
+class ExtArray implements ArrayAccess
 {
     /**
      * @var T[]
@@ -77,4 +79,27 @@ class ExtArray
         return json_encode($this->arr);
     }
 
+    public function offsetExists(mixed $offset): bool
+    {
+        return isset($this->arr[$offset]);
+    }
+
+    public function offsetGet(mixed $offset)
+    {
+        return $this->arr[$offset] ?? null;
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        if (is_null($offset)) {
+            $this->arr[] = $value;
+        } else {
+            $this->arr[$offset] = $value;
+        }
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        unset($this->arr[$offset]);
+    }
 }
