@@ -63,7 +63,7 @@ class ExtString
      * @param string $replace 要替换成的字符串
      * @return ExtString|static   如果替换成功则返回一个新的字符串对象,否则返回当前对象
      */
-    function replaceBefore(string $search, string $replace): ExtString|static
+    public function replaceBefore(string $search, string $replace): ExtString|static
     {
         //要替换的字符串在当前字符串中首次出现的位置
         $pos = strpos($this->str, $search);
@@ -84,7 +84,7 @@ class ExtString
      * @param string $search 要搜索的字符串
      * @return ExtString|static   如果搜索到了则返回一个新的字符串对象,否则返回当前对象
      */
-    function substringAfter(string $search): ExtString|static
+    public function substringAfter(string $search): ExtString|static
     {
         $pos = strpos($this->str, $search);
         if ($pos !== false) {
@@ -104,7 +104,7 @@ class ExtString
      * @param string $search 要搜索的字符串
      * @return ExtString|static   如果搜索到了则返回一个新的字符串对象,否则返回当前对象
      */
-    function substringBefore(string $search): ExtString|static
+    public function substringBefore(string $search): ExtString|static
     {
         $pos = strpos($this->str, $search);
         if ($pos !== false) {
