@@ -93,6 +93,26 @@ class ExtString
         return $this;
     }
 
+    /**
+     * 截取``$this->str``中``$search``之前的部分
+     *
+     * ```php
+     * $str = new ExtString('hello world');
+     * $str.substringBefore('world'); // hello
+     * ```
+     *
+     * @param string $search 要搜索的字符串
+     * @return ExtString|static   如果搜索到了则返回一个新的字符串对象,否则返回当前对象
+     */
+    function substringBefore(string $search): ExtString|static
+    {
+        $pos = strpos($this->str, $search);
+        if ($pos !== false) {
+            return new ExtString(substr($this->str, 0, $pos));
+        }
+        return $this;
+    }
+
 
     /**
      * 去除字符串两边的空白字符
