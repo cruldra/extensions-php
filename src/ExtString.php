@@ -8,7 +8,7 @@ class ExtString
 
     /**
      * ExtString constructor.
-     * @param $str
+     * @param string $str
      */
     public function __construct(string $str)
     {
@@ -71,6 +71,41 @@ class ExtString
             return new ExtString(substr_replace($this->str, $replace, 0, $pos));
         }
         return $this;
+    }
+
+    /**
+     * 截取``$this->str``中``$search``之后的部分
+     *
+     * ```php
+     * $str = new ExtString('hello world');
+     * $str.substringAfter('hello'); // world
+     * ```
+     *
+     * @param string $search 要搜索的字符串
+     * @return ExtString|static   如果搜索到了则返回一个新的字符串对象,否则返回当前对象
+     */
+    function substringAfter(string $search): ExtString|static
+    {
+        $pos = strpos($this->str, $search);
+        if ($pos !== false) {
+            return new ExtString(substr($this->str, $pos + strlen($search)));
+        }
+        return $this;
+    }
+
+
+    /**
+     * 去除字符串两边的空白字符
+     *
+     * ```php
+     * $str = new ExtString(' hello world ');
+     * $str.trim(); // hello world
+     * ```
+     * @return ExtString 返回一个新的字符串对象
+     */
+    function trim(): ExtString
+    {
+        return new ExtString(trim($this->str));
     }
 
     public function __toString(): string
