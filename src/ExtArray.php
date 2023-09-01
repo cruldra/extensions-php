@@ -73,6 +73,30 @@ class ExtArray implements ArrayAccess, Iterator
         return new static($arr);
     }
 
+
+    /**
+     * 删除数组中符合条件的元素
+     *
+     * ```php
+     *  ExtArray::from([1,2,3])->dropWhere(function($value,$key){
+     *   return $value > 1;
+     * }); // [1]
+     * ```
+     *
+     * @param callable(T, mixed):bool $callback 回调函数,该函数接受两个参数,第一个参数为数组中的元素,第二个参数为该元素的键名
+     * @return static 返回一个新的数组对象
+     */
+    public function dropWhere(callable $callback): static
+    {
+        $arr = [];
+        foreach ($this->arr as $key => $value) {
+            if (!$callback($value, $key)) {
+                $arr[$key] = $value;
+            }
+        }
+        return new static($arr);
+    }
+
     /**
      * 返回数组中所有的键
      * @return ExtArray  返回一个包含原数组所有键的新数组
