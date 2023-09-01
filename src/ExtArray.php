@@ -189,7 +189,11 @@ class ExtArray implements ArrayAccess, Iterator
         return isset($this->arr[$this->position]);
     }
 
-    public function toArray()
+    /**
+     * 返回原数组
+     * @return array
+     */
+    public function original(): array
     {
         return $this->arr;
     }
