@@ -128,6 +128,20 @@ class ExtString
         return new ExtString(trim($this->str));
     }
 
+    /**
+     * 转换为小写
+     *
+     * ```php
+     * $str = new ExtString('HELLO WORLD');
+     * $str.toLowerCase(); // hello world
+     * ```
+     * @return ExtString 返回一个新的字符串对象
+     */
+    function toLowerCase(): ExtString
+    {
+        return new ExtString(strtolower($this->str));
+    }
+
     public function __toString(): string
     {
         return $this->str;

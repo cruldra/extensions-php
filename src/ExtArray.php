@@ -52,6 +52,28 @@ class ExtArray implements ArrayAccess, Iterator
     }
 
     /**
+     * 遍历该数组,将数组中的每一个元素作为参数传入``$callback``中并执行,并将``$callback``的返回值作为新数组的元素
+     *
+     * ```php
+     * ExtArray::from([1,2,3])->map(function($value,$key){
+     *    return $value * 2;
+     * });
+     * // 输出: [2,4,6]
+     * ```
+     *
+     * @param callable(T, mixed):mixed $callback 回调函数,该函数接受两个参数,第一个参数为数组中的元素,第二个参数为该元素的键名
+     * @return static 返回一个新的数组对象
+     */
+    public function map(callable $callback): static
+    {
+        $arr = [];
+        foreach ($this->arr as $key => $value) {
+            $arr[$key] = $callback($value, $key);
+        }
+        return new static($arr);
+    }
+
+    /**
      * 返回数组中所有的键
      * @return ExtArray  返回一个包含原数组所有键的新数组
      */
