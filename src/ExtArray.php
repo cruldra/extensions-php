@@ -197,4 +197,23 @@ class ExtArray implements ArrayAccess, Iterator
     {
         return $this->arr;
     }
+
+
+    /**
+     * 返回数组中最后一个元素
+     * @return mixed
+     */
+    public function last(): mixed
+    {
+        return end($this->arr);
+    }
+
+    /**
+     * 返回数组中第一个元素
+     * @return mixed
+     */
+    public function first(): mixed
+    {
+        return reset($this->arr);
+    }
 }
