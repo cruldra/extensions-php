@@ -209,6 +209,17 @@ class ExtArray implements ArrayAccess, Iterator
     }
 
     /**
+     * 将数组中除最后一个元素外的所有其它元素作为新数组返回
+     * @return static
+     */
+    public function subArrayBeforeLast(): static
+    {
+        $arr = $this->arr;
+        array_pop($arr);
+        return new static($arr);
+    }
+
+    /**
      * 返回数组中第一个元素
      * @return mixed
      */
