@@ -151,7 +151,7 @@ class ExtString
      * ```
      * @return ExtString 返回一个新的字符串对象
      */
-    function toCamelCase (): ExtString
+    function toCamelCase(): ExtString
     {
         return new ExtString(preg_replace_callback('/_([a-zA-Z])/', function ($matches) {
             return strtoupper($matches[1]);
@@ -187,6 +187,32 @@ class ExtString
         return new ExtString(preg_replace_callback('/([A-Z])/', function ($matches) {
             return '_' . strtolower($matches[1]);
         }, $this->str));
+    }
+
+    /**
+     * 转换为中划线命名
+     *
+     * ```php
+     * $str = new ExtString('helloWorld');
+     * $str.toKebabCase(); // hello-world
+     * ```
+     * @return ExtString 返回一个新的字符串对象
+     */
+    function toKebabCase(): ExtString
+    {
+        return new ExtString(preg_replace_callback('/([A-Z])/', function ($matches) {
+            return '-' . strtolower($matches[1]);
+        }, $this->str));
+    }
+
+
+    /**
+     * 返回原始字符串
+     * @return string
+     */
+    public function original(): string
+    {
+        return $this->str;
     }
 
 
