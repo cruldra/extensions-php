@@ -142,6 +142,54 @@ class ExtString
         return new ExtString(strtolower($this->str));
     }
 
+    /**
+     * 转换为驼峰命名
+     *
+     * ```php
+     * $str = new ExtString('hello_world');
+     * $str.toCamelCase(); // helloWorld
+     * ```
+     * @return ExtString 返回一个新的字符串对象
+     */
+    function toCamelCase (): ExtString
+    {
+        return new ExtString(preg_replace_callback('/_([a-zA-Z])/', function ($matches) {
+            return strtoupper($matches[1]);
+        }, $this->str));
+    }
+
+
+    /**
+     * 转换为大写
+     *
+     * ```php
+     * $str = new ExtString('hello world');
+     * $str.toUpperCase(); // HELLO WORLD
+     * ```
+     * @return ExtString 返回一个新的字符串对象
+     */
+    function toUpperCase(): ExtString
+    {
+        return new ExtString(strtoupper($this->str));
+    }
+
+    /**
+     * 转换为蛇形命名
+     *
+     * ```php
+     * $str = new ExtString('helloWorld');
+     * $str.toSnakeCase(); // hello_world
+     * ```
+     * @return ExtString 返回一个新的字符串对象
+     */
+    function toSnakeCase(): ExtString
+    {
+        return new ExtString(preg_replace_callback('/([A-Z])/', function ($matches) {
+            return '_' . strtolower($matches[1]);
+        }, $this->str));
+    }
+
+
     public function __toString(): string
     {
         return $this->str;
