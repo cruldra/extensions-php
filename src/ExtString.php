@@ -205,6 +205,43 @@ class ExtString
         }, $this->str));
     }
 
+    /**
+     * 判断此字符串是否以``$search``开头,如果``$search``是一个正则表达式,则使用正则表达式进行匹配
+     * ```php
+     * $str = new ExtString('hello world');
+     * $str.startWith('hello'); // true
+     * $str.startWith('/^hello/'); // true
+     * ```
+     *
+     * @param string $search 要搜索的字符串
+     * @return bool
+     */
+    public function startWith(string $search): bool
+    {
+        if (ExtString::from($search)->isRegex()) {
+            return preg_match($search, $this->str) === 1;
+        }
+        return str_starts_with($this->str, $search);
+    }
+
+    /**
+     * 判断此字符串是否是一个正则表达式
+     *
+     * ```php
+     * $str = new ExtString('/^hello world$/');
+     * $str.isRegex(); // true
+     * ```
+     *
+     * @return bool
+     */
+    function isRegex(): bool
+    {
+        set_error_handler(function () {
+        }, E_WARNING); // Suppress warnings
+        $isRegex = @preg_match($this->str, '') !== FALSE;
+        restore_error_handler(); // Restore the original error handler
+        return $isRegex;
+    }
 
     /**
      * 返回原始字符串
