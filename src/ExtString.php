@@ -94,6 +94,25 @@ class ExtString
     }
 
     /**
+     * 找出当前字符中最后一次出现``$search``字符串之后的部分
+     *
+     * ```php
+     * $str = new ExtString('hello world hello universe');
+     * $str.substringAfterLast('hello'); //  universe
+     * ```
+     * @param string $search 要搜索的字符串
+     * @return ExtString|$this
+     */
+    public function substringAfterLast(string $search): ExtString|static
+    {
+        $pos = strrpos($this->str, $search);
+        if ($pos !== false) {
+            return new ExtString(substr($this->str, $pos + strlen($search)));
+        }
+        return $this;
+    }
+
+    /**
      * 截取``$this->str``中``$search``之前的部分
      *
      * ```php
