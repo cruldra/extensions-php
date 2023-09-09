@@ -52,6 +52,21 @@ class ExtArray implements ArrayAccess, Iterator
     }
 
     /**
+     * 将数组中的元素连接成字符串并返回
+     * ```php
+     * ExtArray::from([1,2,3])->joinToString();
+     * // 输出: "1,2,3"
+     * ```
+     *
+     * @param string $separator
+     * @return ExtString
+     */
+    public function joinToString(string $separator = ","): ExtString
+    {
+        return ExtString::from(implode($separator, $this->arr));
+    }
+
+    /**
      * 遍历该数组,将数组中的每一个元素作为参数传入``$callback``中并执行,并将``$callback``的返回值作为新数组的元素
      *
      * ```php
