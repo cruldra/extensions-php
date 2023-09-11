@@ -88,6 +88,68 @@ class ExtArray implements ArrayAccess, Iterator
         return new static($arr);
     }
 
+    /**
+     * 对值进行分组
+     * ```php
+     *  ExtArray::from([
+     * {group:'1',key:'g1k1',value:'v'},
+     * {group:'1',key:'g1k2',value:'v'},
+     * {group:'2',key:'g2k1',value:'v'},
+     * {group:'3',key:'g3k1',value:'v'},
+     * ] )->groupBy('group',function($item){
+     * return [
+     * 'key'=>$item['key'],
+     * 'value'=>$item['value']
+     * ];
+     * });
+     * // 输出: [
+     * [
+     * 'name'=>'1',
+     * 'values'=>[
+     * ['key'=>'g1k1','value'=>'v'],
+     * ['key'=>'g1k2','value'=>'v'],
+     * ]
+     * ],
+     * [
+     * 'name'=>'2',
+     * 'values'=>[
+     * ['key'=>'g2k1','value'=>'v'],
+     * ]
+     * ],
+     * [
+     * 'name'=>'3',
+     * 'values'=>[
+     * ['key'=>'g3k1','value'=>'v'],
+     * ]
+     * ],
+     * ]
+     * ```
+     *
+     * @param $key
+     * @param $mapper
+     * @param string $groupNameField
+     * @param string $groupValuesField
+     * @return $this
+     */
+    public function groupBy($key, $mapper, string $groupNameField = 'name', string $groupValuesField = 'values'): static
+    {
+        $result = [];
+
+        foreach ($this->arr as $item) {
+            $groupKey = $item[$key];
+
+            if (!isset($result[$groupKey])) {
+                $result[$groupKey] = [
+                    $groupNameField => $groupKey,
+                    $groupValuesField => [],
+                ];
+            }
+
+            $result[$groupKey][$groupValuesField][] = $mapper($item);
+        }
+
+        return  new static(array_values($result));
+    }
 
     /**
      * 删除数组中符合条件的元素
